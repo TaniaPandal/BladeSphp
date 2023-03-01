@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tracks', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('id_tracks')->unsigned();
+            $table->string('name_tracks', 100);
+            $table->string('URL', 200);
+            $table->string('artist', 100);
+            $table->string('genre', 50);
+            $table->timestamp('create_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->binary('foto')->nullable();
+            $table->enum('status', ['Played', 'unPlayed'])->default('unPlayed');
+            $table->bigIncrements('id');
+            $table->foreign('id')->references('id')->on('users');
         });
     }
 
