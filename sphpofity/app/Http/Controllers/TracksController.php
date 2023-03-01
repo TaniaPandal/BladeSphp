@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 use App\Models\Tracks;
 use Illuminate\Http\Request;
@@ -11,10 +11,11 @@ class TracksController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : Response
+    public function index() : View
     {
-       return response("funciona");
+       return view('Tracks.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
