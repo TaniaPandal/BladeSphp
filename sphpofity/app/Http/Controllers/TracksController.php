@@ -2,66 +2,74 @@
 
 namespace App\Http\Controllers;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Tracks;
 use Illuminate\Http\Request;
 
 class TracksController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index() : View
+      public function login()
     {
-       return view('Tracks.index');
+        return view('tracks.login');
+    }
+ 
+    public function index() 
+    {
+       return view('tracks.index');
+    }
+    public function listView()
+    {
+        $tracks = DB::table('tracks')->get();
+        return view('tracks.listView',['table' => $tracks]);
+    }
+    public function listViewTrainer()
+    {
+        $tracks = DB::table('tracks')->get();
+        return view('tracks.listViewTrainer',['table' => $tracks]);
+    }
+    public function formView() 
+    {
+       return view('tracks.formView');
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tracks $tracks)
-    {
-        //
-    }
+//     public function store(Request $request)
+//     {
+//         //
+//     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tracks $tracks)
-    {
-        //
-    }
+//     /**
+//      * Display the specified resource.
+//      */
+//     public function show(Tracks $tracks)
+//     {
+//         //
+//     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tracks $tracks)
-    {
-        //
-    }
+//     /**
+//      * Show the form for editing the specified resource.
+//      */
+//     public function edit(Tracks $tracks)
+//     {
+//         //
+//     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tracks $tracks)
-    {
-        //
-    }
+//     /**
+//      * Update the specified resource in storage.
+//      */
+//     public function update(Request $request, Tracks $tracks)
+//     {
+//         //
+//     }
+
+//     /**
+//      * Remove the specified resource from storage.
+//      */
+//     public function destroy(Tracks $tracks)
+//     {
+//         //
+//     }
 }

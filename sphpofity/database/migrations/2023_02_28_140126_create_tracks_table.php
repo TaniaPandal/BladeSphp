@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tracks', function (Blueprint $table) {
-            $table->integer('id_tracks')->unsigned();
+            $table->bigIncrements('id_tracks')->unsigned();
             $table->string('name_tracks', 100);
             $table->string('URL', 200);
             $table->string('artist', 100);
@@ -20,8 +21,8 @@ return new class extends Migration
             $table->timestamp('create_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->binary('foto')->nullable();
             $table->enum('status', ['Played', 'unPlayed'])->default('unPlayed');
-            $table->bigIncrements('id');
-            $table->foreign('id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
