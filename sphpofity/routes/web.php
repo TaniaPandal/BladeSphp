@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TracksController;
+//use App\Http\Controllers\ProfileController;
+//use App\Http\Controllers\TracksController;
 use Illuminate\Support\Facades\Route;
+use App\images\sphpotify;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,18 +21,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('bienvenido', function () {
+    return 'Are you Trainer o Coder?';
 });
 
-Route::resource('Tracks', TracksController::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
+Route::get('tabla', function () {
+    return 'Estas en la tabla de canciones';
+});
 
-require __DIR__.'/auth.php';
+Route::get('formulario', function () {
+    return 'Estas en el formulario para ingresar canciones';
+});
+
+Route:: view('vistaOne','inicio');
+
+?>
+// Route::get('/dashboard', function () {
+    // return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::middleware('auth')->group(function () {
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+// Route::resource('Tracks', TracksController::class)
+    // ->only(['index', 'store'])
+    // ->middleware(['auth', 'verified']);
+
+// require __DIR__.'/auth.php';
