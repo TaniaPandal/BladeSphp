@@ -3,31 +3,15 @@
 //use App\Http\Controllers\ProfileController;
 //use App\Http\Controllers\TracksController;
 use Illuminate\Support\Facades\Route;
-use App\images\sphpotify;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::controller(TracksController::class)->group(function(){
+    Route::get('/','login')->name('login');
+    Route::get('/index','index')->name('index')->middleware(['auth', 'verified'])->name('index');
+    Route::get('/listView', 'listView')->name('listView');
+    Route::get('/listViewTrainer', 'listViewTrainer')->name('listViewTrainer');
+    Route::get('/formView', 'formView')->name('formView');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('bienvenido', function () {
-    return 'Are you Trainer o Coder?';
-});
-
-Route::get('tabla', function () {
-    return 'Estas en la tabla de canciones';
 });
 
 Route::get('formulario', function () {
