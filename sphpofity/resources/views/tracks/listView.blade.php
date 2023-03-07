@@ -33,7 +33,7 @@
                     <td>{{ $item->genre }}</td>
                     <td>{{ $item->create_at }}</td>
                     <td>{{ $item->foto }}</td>
-                    <td>{{ $item->user_id }}</td>
+                    <td>{{ $item->name = Auth::user()->name }}</td>
                     <td>
                         <button onclick="deleteRow({{ $item->id_tracks }})" src={{ asset('images/trash.png') }} alt="basura">
                         </button>

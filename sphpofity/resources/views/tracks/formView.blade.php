@@ -19,7 +19,8 @@
               <input type="file" name="image"/>
               <br></br>
             </div>
-            <form class="form-items" action="" method="">
+            <form class="form-items" action="{{ route('tracks.store') }}" method="POST">
+              @csrf
               <div class="elements-group">
                 <label htmlFor="track">Song</label>
                 <input type="text" id="track-name" placeholder="Insert New Song" ></input>
@@ -50,9 +51,7 @@
                 <input type="text" id="user-name" placeholder="Insert New User."></input>
               </div>
               <div>
-                <a href="{{url("/listView")}}"></a>
-                  <button type="submit" class="btn-done">Done</button>
-              </a>
+                  <button type="submit" class="btn-done"><a href="{{url("/listView")}}">Done</a></button>
               </div>
             </form>
   

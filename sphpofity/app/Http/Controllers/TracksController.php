@@ -5,6 +5,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tracks;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class TracksController extends Controller
@@ -54,17 +56,20 @@ class TracksController extends Controller
     $track->artist = $request->input('artist');
     $track->genre = $request->input('genre');
     $track->create_at = $request->input('create_at');
-    $track->name = $request->input('name');
+    $track->name = Auth::user()->name;
     $track->foto = $fotoContent;
     $track->save();
 
-    // return redirect()->route('tracks.listView')->with('success', 'Track saved/updated successfully.');
+    return redirect()->route('tracks.listView')->with('success', 'Track saved/updated successfully.');
     }
+
+
     public function edit($id)
     {
         $track = Tracks::find($id);
         return view('listView', compact('track'));
     }
+    
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -76,13 +81,16 @@ class TracksController extends Controller
             'name' => 'required|max:255',
         ]);
 
+        $user = auth()->user();
+        $user->name = $request->input('name');
+        $user->save();
+
         $track = Tracks::find($id);
         $track->name_tracks = $request->input('name_tracks');
         $track->URL = $request->input('URL');
         $track->artist = $request->input('artist');
         $track->genre = $request->input('genre');
         $track->create_at = $request->input('create_at');
-        $track->name = $request->input('name');
         $track->save();
 
     return redirect()->route('tracks.listView')->with('success', 'Track saved/updated successfully.');
