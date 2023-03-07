@@ -34,7 +34,7 @@
                     <td>{{ $item->genre }}</td>
                     <td>{{ $item->create_at }}</td>
                     <td>{{ $item->foto }}</td>
-                    <td>{{ $item->user_id }}</td>
+                    <td>{{ $item->name }}</td>
                     <td>{{ $item->status}}</td>
                     <td>
                         <button onclick="deleteRow({{ $item->id_tracks }})" src={{ asset('images/trash.png') }} alt="basura">

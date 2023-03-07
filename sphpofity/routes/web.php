@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(TracksController::class)->group(function(){
-    Route::get('/','login')->name('login');
+    Route::get('/','init')->name('init');
     Route::get('/index','index')->name('index')->middleware(['auth', 'verified'])->name('index');
     Route::get('/listView', 'listView')->name('listView');
     Route::get('/listViewTrainer', 'listViewTrainer')->name('listViewTrainer');
@@ -23,5 +23,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('Tracks', TracksController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
+
+ Route::post('/tracks', [TracksController::class, 'store'])->name('tracks.store');
+
 
 require __DIR__.'/auth.php';
