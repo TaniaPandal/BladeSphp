@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tracks extends Model
 {
+    public $timestamps = false;
+    protected $fillable = [
+        'name_tracks',
+        'URL',
+        'artist',
+        'genre',
+        'create_at',
+        'foto'
+    ];
     use HasFactory;
 
     public function user(){

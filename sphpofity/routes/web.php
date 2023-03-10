@@ -5,26 +5,18 @@ use App\Http\Controllers\TracksController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::controller(TracksController::class)->group(function(){
-    Route::get('/','init')->name('init');
-    Route::get('/index','index')->name('index')->middleware(['auth', 'verified'])->name('index');
-    Route::get('/listView', 'listView')->name('listView');
-    Route::get('/listViewTrainer', 'listViewTrainer')->name('listViewTrainer');
-    Route::get('/formView', 'formView')->name('formView');
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/', [TracksController::class, 'init'])->name('init');
+    Route::get('/index', [TracksController::class, 'index'])->name('index');
+    Route::get('/listView', [TracksController::class, 'listView'])->name('listView');
+    Route::get('/listViewTrainer', [TracksController::class, 'listViewTrainer'])->name('listViewTrainer');
+    Route::get('/formView', [TracksController::class, 'formView'])->name('formView');
+    Route::post('/tracks', [TracksController::class, 'store'])->name('store')->middleware(['auth', 'verified']);
+    Route::match(['put', 'patch'], '/tracks/{id}', [TracksController::class, 'update'])->name('tracks.update');
+    Route::get('/tracks.foto/{id}', [TracksController::class, 'foto'])->name('tracks.foto');
 
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::resource('Tracks', TracksController::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
-
- Route::post('/tracks', [TracksController::class, 'store'])->name('tracks.store');
 
 
 require __DIR__.'/auth.php';
