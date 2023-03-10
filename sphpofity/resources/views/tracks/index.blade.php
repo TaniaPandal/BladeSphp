@@ -13,8 +13,8 @@
     <title>Document</title>
 </head>
 <body class="containerHome bg-cover bg-no-repeat h-screen " style="background-image: url('images/fondoFocos.png')">
-    <div class="hidden sm:flex sm:items-center sm:ml-6">
-      <x-dropdown align="left" width="48">
+    <div class="flex sm:items-center ml-6">
+      <x-dropdown align="left" class="w-full" width="48">
           <x-slot name="trigger">
               <button class="inline-flex items-center px-3 py-2 mt-3 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                   <div>{{ Auth::user()->name }}</div>
@@ -38,16 +38,16 @@
           </x-slot>
       </x-dropdown>
   </div>
-  <div class="container mx-auto px-6 py-3 relative filter drop-shadow-md opacity-80">
+  <div class="container mx-auto px-0 py-3 relative filter drop-shadow-md opacity-80">
     <div class="flex justify-center items-center h-1/2">
-      <img class="w-1/3" alt="logo micro con fondo negro" src="/images/logo/para-fondo-negro.png" />
+      <img class="w-1/5" alt="logo micro con fondo negro" src="/images/logo/para-fondo-negro.png" />
     </div>
-    <div class="flex justify-center items-center mt-8">
+    <div class="flex justify-center items-center mt-1">
       <a href="{{ url('/listView') }}">
-        <button class="btn1 bg-white text-black hover:bg-black hover:text-white transition duration-300 rounded-md py-2 px-4 text-sm font-medium mr-4">Coder</button>
+        <button class="btn1 bg-white text-black hover:bg-black hover:text-white transition duration-300 rounded-md py-4 px-6 text-sm font-medium mr-4">Coder</button>
       </a>
       <a href="{{ url('/listViewTrainer') }}">
-        <button class="btn2 bg-white text-black hover:bg-black hover:text-white transition duration-300 rounded-md py-2 px-4 text-sm font-medium">Trainer</button>
+        <button class="btn2 bg-white text-black hover:bg-black hover:text-white transition duration-300 rounded-md py-4 px-6 text-sm font-medium">Trainer</button>
       </a>
     </div>
   </div>
