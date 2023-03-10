@@ -1,41 +1,19 @@
 .containerList {
-    background-image: url(../../../images/fondoEscenario.png);
-    background-size: cover;
-    background-attachment: fixed;
     height: 90vh;
-    margin: 0;
     padding: 2%;
-    padding-left: 10%;
-    position: relative;
     filter: drop-shadow(0px 4px 4px rgba(169, 41, 41, 0.25));
     opacity: 0.7;
-    display: flex;
   }
-  .logo {
-    width: 22%;
-    position: absolute;
-    z-index: 1;
-    padding-left: 31%;
-    padding-top: 2%;
-    align-items: center;
-    position:fixed; 
-  }
-  .bottonAdd{
-    padding-top: 25%;
-    padding-right: 1%;
-    width: 90px;
-    height: 40px;
-  }
-  .microLog {
-    height: 35vh;
-    padding: 4%;
-  }
+  .table1 {
+    border-collapse: separate;
+    border-spacing: 3px;
+  } 
+
   .tabla {
     display: flex;
   }
   .celdas {
     width: 50%;
-    border-collapse: collapse;
     background-color: #545454;
     color :#ffffff;
   }
@@ -43,11 +21,11 @@
     /*border: 1px solid #FFFFFF;*/
     text-align: center;
     padding: 20px;
-    width: 11.1%; /* (100 / 9) */
+    width: 15.1%; 
   }
   table td {
-    width: 60px;
-    height: 10px;
+    /* width: 60px;
+    height: 10px; */
     background-color: #545454;
     color: #FFFFFF;
   }
