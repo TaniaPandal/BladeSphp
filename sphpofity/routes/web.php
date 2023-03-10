@@ -11,7 +11,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/listView', [TracksController::class, 'listView'])->name('listView');
     Route::get('/listViewTrainer', [TracksController::class, 'listViewTrainer'])->name('listViewTrainer');
     Route::get('/formView', [TracksController::class, 'formView'])->name('formView');
-    Route::post('/tracks', [TracksController::class, 'store'])->name('store')->middleware(['auth', 'verified']);
+    Route::post('/tracks', [TracksController::class, 'store'])->name('tracks.store')->middleware(['auth', 'verified']);
     Route::match(['put', 'patch'], '/tracks/{id}', [TracksController::class, 'update'])->name('tracks.update');
     Route::get('/tracks.foto/{id}', [TracksController::class, 'foto'])->name('tracks.foto');
 

@@ -11,8 +11,8 @@
     <div class="body-view">
         <div class="container">
             <img class="logoBM" src={{ asset('images//logo/para-fondo-negro.png') }} alt="logo con micro" alt="" />
-            <form class="form-items" action="{{ route('tracks.store') }}" method="POST" enctype="multipart/form-data">
-              @csrf
+              <form class="form-items" action="{{ route('store')}}" method="POST" enctype="multipart/form-data">
+                @csrf  
               <div class="elements-group">
                 <label htmlFor="track">Song</label>
                 <input type="text" id="track-name" placeholder="Insert New Song" name="name_tracks" required></input>
