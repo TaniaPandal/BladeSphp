@@ -70,8 +70,9 @@ class TracksController extends Controller
     }
     public function foto($id)
     {
-        $foto = DB::table('tracks')->where('id', $id)->value('foto');
-        return response(base64_decode($foto))->header('Content-Type', 'image/jpeg');
+        $foto = DB::table('tracks')->select('foto')->where('id_tracks', $id)->first();
+        return response(base64_decode($foto->foto))->header('Content-Type', 'image/jpeg');
+
     }
 
     
