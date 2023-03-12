@@ -14,7 +14,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/tracks', [TracksController::class, 'store'])->name('tracks.store')->middleware(['auth', 'verified']);
     Route::match(['put', 'patch'], '/tracks/{id}', [TracksController::class, 'update'])->name('tracks.update');
     Route::get('/tracks.foto/{id}', [TracksController::class, 'foto'])->name('tracks.foto');
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -24,4 +23,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
+
+
+
+
+require __DIR__ . '/auth.php';
