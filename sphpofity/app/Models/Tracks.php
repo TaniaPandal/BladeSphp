@@ -16,7 +16,7 @@ class Tracks extends Model
         'create_at',
         'foto'
     ];
-    protected $primaryKey = 'id_tracks'; // Faltaba definir aca para poder cruzar git status
+    protected $primaryKey = 'id_tracks'; // Faltaba definir aca para poder cruzar, relacionar las consultas con el id_tracks.
 
     use HasFactory;
 
