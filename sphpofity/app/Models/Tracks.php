@@ -16,9 +16,12 @@ class Tracks extends Model
         'create_at',
         'foto'
     ];
+    protected $primaryKey = 'id_tracks'; // Faltaba definir aca para poder cruzar, relacionar las consultas con el id_tracks.
+
     use HasFactory;
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
