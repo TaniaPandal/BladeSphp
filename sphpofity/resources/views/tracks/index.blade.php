@@ -10,7 +10,7 @@
     @vite(['resources/js/app.js','resources/css/app.css'])
 
     <!-- Styles -->
-    <title>Document</title>
+    <title>sphpotify</title>
 </head>
 <body class="containerHome bg-cover bg-no-repeat h-screen " style="background-image: url('images/fondoFocos.png')">
     <div class="flex sm:items-center ml-6">

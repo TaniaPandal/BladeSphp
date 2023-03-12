@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/formView.css">
-    <title>Document</title>
+    <title>sphpotify</title>
 </head>
 <body>
     <div class="body-view">
         <div class="container">
             <img class="logoBM" src={{ asset('images//logo/para-fondo-negro.png') }} alt="logo con micro" alt="" />
-              <form class="form-items" action="{{ route('store')}}" method="POST" enctype="multipart/form-data">
+              <form class="form-items" action="{{ route('tracks.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf  
               <div class="elements-group">
                 <label htmlFor="track">Song</label>
