@@ -11,7 +11,7 @@ class TracksTest extends TestCase
 {
     public function TestDataTrack()
     {
-
+        // Construye el objeto track para el cruce don la DB y la data de test
         $track = new Tracks();
         $track->name_tracks = 'Sample song';
         $track->URL = 'https://example.com/song.mp3';
@@ -19,22 +19,24 @@ class TracksTest extends TestCase
         $track->genre = 'Sample genre';
         $track->create_at = date('Y-m-d');
         $track->foto = 'https://example.com/photo.jpg';
-        $track->user_id = 1;
+        $track->user_id = 1; // este debe existir ya en la tabla user
 
-
+        // Para garantizar se continue el debido orden de auto incremento post test
         $lastInsertedId = $track->id_tracks;
         DB::statement("ALTER TABLE tracks AUTO_INCREMENT = " . ($lastInsertedId + 1));
 
+        // Comisionar data en la BD por medio de los atributos del objeto
         $track->save();
 
-        return $track;
+        return $track; // Debe ser retornado el objeto para el uso en cada test
     }
     public function test_track_creation()
     {
 
+        // Llamada al metodo que crea la data de prueba 
         $track = $this->TestDataTrack();
 
-        // Check if the track was saved in the database
+        // Verifica si el test ha sido capaz de guardar la data en la BD
         $this->assertDatabaseHas('tracks', [
             'name_tracks' => 'Sample song',
             'URL' => 'https://example.com/song.mp3',
@@ -45,29 +47,31 @@ class TracksTest extends TestCase
             'user_id' => 1,
         ]);
 
-        // Check if the properties of the Track model were set correctly
+        // Verificar que las propiedades del objeto son iguales a los campos de la tabla
         $this->assertEquals('Sample song', $track->name_tracks);
         $this->assertEquals('https://example.com/song.mp3', $track->URL);
         $this->assertEquals('Sample artist', $track->artist);
         $this->assertEquals('Sample genre', $track->genre);
         $this->assertEquals(date('Y-m-d'), $track->create_at);
         $this->assertEquals('https://example.com/photo.jpg', $track->foto);
-        $this->assertEquals(1, $track->user_id); // Store the ID of the last inserted track
+        $this->assertEquals(1, $track->user_id);
 
+        // Eliminar el objeto y registro en BD del test
         $track->delete();
     }
 
 
     public function test_track_update()
     {
-        // First, create a track
+
+        // Llamada al metodo que crea la data de prueba 
         $track = $this->TestDataTrack();
 
-        // Find the track that was just created
+        // encuentra y apunta al registro recinetemete creado
         $track = Tracks::where('name_tracks', 'Sample song')->first();
 
 
-        // Update some of the properties
+        // Se actualizan las propiedades del objeto que registrar cambios en la DB
         $track->name_tracks = 'Update song';
         $track->URL = 'https://example.com/song.mp3';
         $track->artist = 'Update artist';
@@ -77,7 +81,7 @@ class TracksTest extends TestCase
         $track->user_id = 1;
         $track->save();
 
-        // Check if the track was updated in the database
+        // Verifica que los cambios fueron comisionados 
         $this->assertDatabaseHas('tracks', [
             'name_tracks' => 'Update song',
             'URL' => 'https://example.com/song.mp3',
@@ -88,7 +92,7 @@ class TracksTest extends TestCase
             'user_id' => 1,
         ]);
 
-        // Check if the properties of the Track model were updated correctly
+        // Verifica que el cruce de datos entre propiedades del objeto y los datos de la taba son iguales post update
         $this->assertEquals('Update song', $track->name_tracks);
         $this->assertEquals('https://example.com/song.mp3', $track->URL);
         $this->assertEquals('Update artist', $track->artist);
@@ -97,47 +101,49 @@ class TracksTest extends TestCase
         $this->assertEquals('https://example.com/photo.jpg', $track->foto);
         $this->assertEquals(1, $track->user_id); // Store the ID of the last inserted track
 
+        //Eliminar el objeto y registro en BD del test
         $track->delete();
     }
 
     public function test_track_deletion()
     {
-        // First, create a track
+        // Llamada al metodo que crea la data de prueba 
         $track = $this->TestDataTrack();
 
-        // Find the track that was just created
+        // encuentra y apunta al registro recinetemete creado
         $track = Tracks::where('name_tracks', 'Sample song');
 
-        // Delete the track
+        // Elimina el objeto y el registro de test en la BD
         $track->delete();
 
-        // Check if the track was deleted from the database
+        // Verifica que el registro fue realmente elimniado de la tabla tracks
         $this->assertDatabaseMissing('tracks', [
             'name_tracks' => 'Sample song',
         ]);
 
-        // Try to find the track again to make sure it was deleted
+        // Prueba si hay ocurrencia a la consulta select condicionada al nombre del track del test
+        // en es correcto caso de eliminacion sera null el resultado de la consulta
         $track = Tracks::where('name_tracks', 'Sample song')->first();
         $this->assertNull($track);
     }
 
     public function test_track_selection()
     {
-        // First, create a track
+        // Llamada al metodo que crea la data de prueba 
         $track = $this->TestDataTrack();
 
-        // Find the track that was just created
+        // encuentra y apunta al registro recinetemete creado
         $track = Tracks::where('name_tracks', 'Sample song')->first();
 
-        // Find the track by name
+        // Encuentra el registro con el nombre del track y vverifica que sena iguales en objeto y tabla
         $trackByName = Tracks::where('name_tracks', 'Sample song')->first();
         $this->assertEquals('Sample song', $trackByName->name_tracks);
 
-        // Try to find the track by an incorrect name
+        // Prueba cuando la consulta sea errada con nombre incorrecto de track lo que devuelve null la consulta
         $trackByIncorrectName = Tracks::where('name_tracks', 'Incorrect song name')->first();
         $this->assertNull($trackByIncorrectName);
 
-        // Delete the track to clean up
+        // Eliminar registro del test en la BD
         $track->delete();
     }
 }
