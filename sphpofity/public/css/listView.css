@@ -8,24 +8,16 @@
     border-collapse: separate;
     border-spacing: 3px;
   } 
-
-  .tabla {
-    display: flex;
-  }
   .celdas {
     width: 50%;
     background-color: #545454;
     color :#ffffff;
   }
   td {
-    /*border: 1px solid #FFFFFF;*/
-    text-align: center;
     padding: 20px;
     width: 15.1%; 
   }
   table td {
-    /* width: 60px;
-    height: 10px; */
     background-color: #545454;
     color: #FFFFFF;
   }

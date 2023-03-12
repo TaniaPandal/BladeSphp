@@ -74,7 +74,13 @@ class TracksController extends Controller
         return response(base64_decode($foto->foto))->header('Content-Type', 'image/jpeg');
 
     }
-
+    public function updateStatus(Request $request, $id) 
+    {
+        $track = Tracks::where('id_tracks', $id)->first();
+        $track->status = $request->status;
+        $track->save();
+        return redirect()->route('listView');
+    }
     
 
     // public function show(Tracks $track)
@@ -82,41 +88,44 @@ class TracksController extends Controller
     // return view('tracks.listView', compact('track'));
     // }
 
-    public function edit($id)
-    {
-        $track = Tracks::find($id);
-        return view('traks.formView', compact('track'));
-    }
+    // public function edit($id)
+    // {
+    //     $track = Tracks::find($id);
+    //     return view('traks.formView', compact('track'));
+    // }
     
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name_tracks' => 'required|max:100',
-            'URL' => 'required|max:200',
-            'artist' => 'required|max:100',
-            'genre' => 'required|max:50',
-            'create_at' => 'required|date',
-            'foto' => 'nullable|image',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'name_tracks' => 'required|max:100',
+    //         'URL' => 'required|max:200',
+    //         'artist' => 'required|max:100',
+    //         'genre' => 'required|max:50',
+    //         'create_at' => 'required|date',
+    //         'foto' => 'nullable|image',
+    //     ]);
 
 
-        $track = Tracks::find($id);
-        $track->name_tracks = $request->input('name_tracks');
-        $track->URL = $request->input('URL');
-        $track->artist = $request->input('artist');
-        $track->genre = $request->input('genre');
-        $track->create_at = $request->input('create_at');
+    //     $track = Tracks::find($id);
+    //     $track->name_tracks = $request->input('name_tracks');
+    //     $track->URL = $request->input('URL');
+    //     $track->artist = $request->input('artist');
+    //     $track->genre = $request->input('genre');
+    //     $track->create_at = $request->input('create_at');
         
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/fotos', $filename);
-            $track->foto = $filename;
-        }
-        $track->save();
+    //     if ($request->hasFile('foto')) {
+    //         $file = $request->file('foto');
+    //         $filename = time() . '_' . $file->getClientOriginalName();
+    //         $file->storeAs('public/fotos', $filename);
+    //         $track->foto = $filename;
+    //     }
+    //     $track->save();
 
-    return redirect()->route('tracks.listView')->with('success', 'Track saved/updated successfully.');
-    }
+    // return redirect()->route('tracks.listView')->with('success', 'Track saved/updated successfully.');
+    // }
+   
+    
+    
  
 }
 

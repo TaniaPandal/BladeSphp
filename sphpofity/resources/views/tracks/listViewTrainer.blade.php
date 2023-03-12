@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/css/listView.css">
-	<title>Lista de tracks</title>
+	<title>sphpotify</title>
 </head>
 <body>
     <div class="containerList">
