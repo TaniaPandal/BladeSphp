@@ -16,6 +16,8 @@ class Tracks extends Model
         'create_at',
         'foto'
     ];
+    protected $primaryKey = 'id_tracks'; // Faltaba definir aca para poder cruzar git status
+
     use HasFactory;
 
     public function user()

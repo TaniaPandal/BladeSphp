@@ -5,22 +5,34 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Tracks;
 
+use Illuminate\Support\Facades\DB;
+
 class TracksTest extends TestCase
 {
-
-    public function test_track_creation()
+    public function TestDataTrack()
     {
-        $current_date_time = date('Y-m-d H:i:s', time());
 
         $track = new Tracks();
         $track->name_tracks = 'Sample song';
         $track->URL = 'https://example.com/song.mp3';
         $track->artist = 'Sample artist';
         $track->genre = 'Sample genre';
-        $track->create_at = $current_date_time;;
+        $track->create_at = date('Y-m-d');
         $track->foto = 'https://example.com/photo.jpg';
         $track->user_id = 1;
+
+
+        $lastInsertedId = $track->id_tracks;
+        DB::statement("ALTER TABLE tracks AUTO_INCREMENT = " . ($lastInsertedId + 1));
+
         $track->save();
+
+        return $track;
+    }
+    public function test_track_creation()
+    {
+
+        $track = $this->TestDataTrack();
 
         // Check if the track was saved in the database
         $this->assertDatabaseHas('tracks', [
@@ -28,7 +40,7 @@ class TracksTest extends TestCase
             'URL' => 'https://example.com/song.mp3',
             'artist' => 'Sample artist',
             'genre' => 'Sample genre',
-            'create_at' => $current_date_time,
+            'create_at' => date('Y-m-d'),
             'foto' => 'https://example.com/photo.jpg',
             'user_id' => 1,
         ]);
@@ -38,18 +50,10 @@ class TracksTest extends TestCase
         $this->assertEquals('https://example.com/song.mp3', $track->URL);
         $this->assertEquals('Sample artist', $track->artist);
         $this->assertEquals('Sample genre', $track->genre);
-        $this->assertEquals($current_date_time, $track->create_at);
+        $this->assertEquals(date('Y-m-d'), $track->create_at);
         $this->assertEquals('https://example.com/photo.jpg', $track->foto);
         $this->assertEquals(1, $track->user_id); // Store the ID of the last inserted track
-        $this->tearDown();
 
-        // End the test
-        $this->assertTrue(true);
-    }
-
-    protected function tearDown(): void
-    {
-        $track = Tracks::where('name_tracks', 'Sample song');
         $track->delete();
     }
 
@@ -57,48 +61,52 @@ class TracksTest extends TestCase
     public function test_track_update()
     {
         // First, create a track
-        $current_date_time = date('Y-m-d H:i:s', time());
+        $track = $this->TestDataTrack();
 
-        $track = new Tracks();
-        $track->name_tracks = 'Sample song';
+        // Find the track that was just created
+        $track = Tracks::where('name_tracks', 'Sample song')->first();
+
+
+        // Update some of the properties
+        $track->name_tracks = 'Update song';
         $track->URL = 'https://example.com/song.mp3';
-        $track->artist = 'Sample artist';
-        $track->genre = 'Sample genre';
-        $track->create_at = $current_date_time;;
+        $track->artist = 'Update artist';
+        $track->genre = 'Update genre';
+        $track->create_at = date('Y-m-d');
         $track->foto = 'https://example.com/photo.jpg';
         $track->user_id = 1;
         $track->save();
 
-        // Find the track that was just created
-        $track = Tracks::where('name_tracks', 'Sample song');
-
-        // Update some of the properties
-        $track->URL = 'https://example.com/new-song.mp3';
-        $track->genre = 'New genre';
-        $track->save();
-
         // Check if the track was updated in the database
         $this->assertDatabaseHas('tracks', [
-            'name_tracks' => 'Sample song',
-            'URL' => 'https://example.com/new-song.mp3',
-            'genre' => 'New genre',
+            'name_tracks' => 'Update song',
+            'URL' => 'https://example.com/song.mp3',
+            'artist' => 'Update artist',
+            'genre' => 'Update genre',
+            'create_at' => date('Y-m-d'),
+            'foto' => 'https://example.com/photo.jpg',
+            'user_id' => 1,
         ]);
 
         // Check if the properties of the Track model were updated correctly
-        $this->assertEquals('https://example.com/new-song.mp3', $track->URL);
-        $this->assertEquals('New genre', $track->genre);
+        $this->assertEquals('Update song', $track->name_tracks);
+        $this->assertEquals('https://example.com/song.mp3', $track->URL);
+        $this->assertEquals('Update artist', $track->artist);
+        $this->assertEquals('Update genre', $track->genre);
+        $this->assertEquals(date('Y-m-d'), $track->create_at);
+        $this->assertEquals('https://example.com/photo.jpg', $track->foto);
+        $this->assertEquals(1, $track->user_id); // Store the ID of the last inserted track
 
-        // Delete the track to clean up
-        // $this->tearDown();
+        $track->delete();
     }
 
     public function test_track_deletion()
     {
         // First, create a track
-        $this->test_track_creation();
+        $track = $this->TestDataTrack();
 
         // Find the track that was just created
-        $track = Tracks::where('name_tracks', 'Sample song')->first();
+        $track = Tracks::where('name_tracks', 'Sample song');
 
         // Delete the track
         $track->delete();
@@ -116,7 +124,7 @@ class TracksTest extends TestCase
     public function test_track_selection()
     {
         // First, create a track
-        $this->test_track_creation();
+        $track = $this->TestDataTrack();
 
         // Find the track that was just created
         $track = Tracks::where('name_tracks', 'Sample song')->first();
@@ -130,6 +138,6 @@ class TracksTest extends TestCase
         $this->assertNull($trackByIncorrectName);
 
         // Delete the track to clean up
-        $this->tearDown();
+        $track->delete();
     }
 }
