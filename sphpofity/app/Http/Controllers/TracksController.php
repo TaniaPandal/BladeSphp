@@ -123,6 +123,11 @@ class TracksController extends Controller
     }
    
     
-    
+    public function destroy($id) {
+        $track = Tracks::findOrfail($id);
+        $track->delete();
+
+        return redirect()->route('listView');
+    }
  
 }

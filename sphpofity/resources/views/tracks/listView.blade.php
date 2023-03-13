@@ -55,8 +55,11 @@
                             {{-- </form> --}}
                         </td>
                         <td class="py-2 px-4">
-                            <button onclick="deleteRow({{ $item->id_tracks }})" >
-                                <img src={{ asset('images\trash.png') }} alt="basura"/>
+                            <form action="{{ route('tracks.destroy', ['id_tracks' => $item->id_tracks]) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('DELETE')
+                             <button type="submit"  onclick="return confirm('Are you sure you want to delete this track?')">
+                                <img src={{ asset('images\trash.png') }} alt="basura" class="w-full max-w-screen-lg filter brightness-0" style="transform: scale(1.8);"/>
                             </button>
                         </td>    
                     </tr>
