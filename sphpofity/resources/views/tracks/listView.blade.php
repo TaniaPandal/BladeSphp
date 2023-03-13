@@ -48,7 +48,7 @@
                             {{-- <form action="{{ route('tracks.updateStatus', ['id_tracks' => $item->id_tracks])  }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT') --}}
-                                <select name="status" id="status" onchange="this.form.submit()">
+                                <select name="status" id="status" ">
                                     <option value="Played" @if($item->status == 'Played') selected @endif>Played</option>
                                     <option value="unPlayed" @if($item->status == 'unPlayed') selected @endif>Unplayed</option>
                                 </select>
